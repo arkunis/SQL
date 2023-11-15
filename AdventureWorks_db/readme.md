@@ -5,13 +5,13 @@
 > https://drive.google.com/drive/folders/1CsEVxUp4nVZI7Mu3WnOEaQcr5-tSR6vn?usp=sharing
 
 
-1/ 
+#### 1/ 
 
     SELECT Person.LastName, Person.FirstName, HumanResources.Employee.JobTitle 
     from HumanResources.Employee 
     inner join Person.Person on Person.BusinessEntityID = HumanResources.Employee.BusinessEntityID order by HumanResources.Employee.BusinessEntityID
 
-2/
+#### 2/
 
     SELECT Person.LastName, Person.FirstName, HumanResources.Employee.OrganizationLevel, HumanResources.EmployeeDepartmentHistory.StartDate
     from HumanResources.Employee 
@@ -20,7 +20,7 @@
     inner join HumanResources.EmployeeDepartmentHistory on HumanResources.EmployeeDepartmentHistory.BusinessEntityID = HumanResources.Employee.BusinessEntityID
     order by HumanResources.Employee.OrganizationLevel
 
-3/
+#### 3/
 
     SELECT Person.LastName, Person.FirstName, PhoneNumber, PhoneNumberType.Name
     from HumanResources.Employee 
@@ -30,7 +30,7 @@
     where PersonPhone.PhoneNumberTypeID = 1
     order by HumanResources.Employee.OrganizationLevel
 
-4/
+#### 4/
 
     SELECT Person.LastName, Person.FirstName, PhoneNumber, PhoneNumberType.Name
     from HumanResources.Employee 
@@ -40,7 +40,7 @@
     where PersonPhone.PhoneNumberTypeID = 3
     order by HumanResources.Employee.OrganizationLevel
 
-5/
+#### 5/
 
     SELECT Person.LastName, Person.FirstName, PhoneNumber, PhoneNumberType.Name
     from HumanResources.Employee 
@@ -49,7 +49,7 @@
     inner join Person.PhoneNumberType on PhoneNumberType.PhoneNumberTypeID = PersonPhone.PhoneNumberTypeID
     order by HumanResources.Employee.OrganizationLevel
 
-6/
+#### 6/
 
     SELECT Person.LastName, 
     Person.FirstName,
@@ -63,7 +63,7 @@
     inner join Person.Address on Address.AddressID = BusinessEntityAddress.AddressID
     order by Person.BusinessEntityID asc
 
-7/
+#### 7/
 
     SELECT Person.LastName, 
     Person.FirstName,
@@ -77,7 +77,7 @@
     inner join Person.Address on Address.AddressID = BusinessEntityAddress.AddressID
     order by Person.BusinessEntityID asc
 
-8/
+#### 8/
 
     SELECT Person.LastName, 
     Person.FirstName,
@@ -87,7 +87,7 @@
     inner join Person.EmailAddress on EmailAddress.BusinessEntityID = HumanResources.Employee.BusinessEntityID
     where Person.EmailPromotion > 1
 
-9/
+#### 9/
 
     SELECT Person.LastName, 
     Person.FirstName,
@@ -100,7 +100,7 @@
     where Person.PersonType like 'SP'
     order by BusinessEntityID asc
 
-10/
+#### 10/
 
     select name,
     ProductDescription.Description
@@ -109,6 +109,11 @@
     inner join Production.ProductDescription on ProductDescription.ProductDescriptionID = ProductModelProductDescriptionCulture.ProductDescriptionID
     where ProductModelProductDescriptionCulture.CultureID = 'FR'
 
-11/
+#### 11/
 
-
+#### 12/
+#### 13/
+#### 14/
+#### 15/
+#### 16/
+#### 17/
