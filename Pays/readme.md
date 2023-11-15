@@ -1,3 +1,547 @@
+#### 1 // 
+
+    SELECT * FROM t_regions INNER JOIN t_continents ON (t_regions.continent_id = 5)
+
+#### 2 // 
+
+    SELECT * FROM t_pays INNER JOIN t_continents ON (t_pays.continent_id = 5)
+
+#### 3 // 
+
+    SELECT * FROM t_pays INNER JOIN t_regions ON (1 = t_regions.id_region)
+
+#### 4 //
+
+    SELECT libelle_continent,COUNT(libelle_pays) FROM t_pays INNER JOIN t_continents ON (t_pays.continent_id=t_continents.id_continent) WHERE id_continent=6 GROUP BY libelle_continent;
+
+#### 5 // 
+
+    SELECT libelle_continent,COUNT(libelle_region) FROM t_regions INNER JOIN t_continents ON (t_regions.continent_id=t_continents.id_continent) WHERE id_continent=4 GROUP BY libelle_continent;
+
+#### 6 // 
+
+    SELECT libelle_continent,COUNT(libelle_region) FROM t_regions INNER JOIN t_continents ON (t_regions.continent_id=t_continents.id_continent) WHERE id_continent=3 GROUP BY libelle_continent;
+
+#### 7 // 
+
+    SELECT libelle_continent,SUM(population_pays) FROM t_pays INNER JOIN t_continents ON (t_pays.continent_id=t_continents.id_continent) GROUP BY libelle_continent;
+
+#### 8 // 
+
+    SELECT libelle_region ,SUM(population_pays) FROM t_pays INNER JOIN t_regions ON (t_pays.region_id=t_regions.id_region) GROUP BY libelle_region
+
+#### 9 //
+
+    SELECT libelle_continent,SUM(population_pays) FROM t_pays INNER JOIN t_continents ON (t_pays.continent_id=t_continents.id_continent) ORDER BY SUM(population_pays) DESC;
+
+#### 10 // 
+
+    SELECT libelle_region,SUM(population_pays) FROM t_pays INNER JOIN t_regions ON (t_pays.region_id=t_regions.id_region) GROUP BY libelle_region ORDER BY SUM(population_pays) DESC;
+
+#### 11 // 
+
+    SELECT libelle_continent, SUM(population_pays) FROM t_pays INNER JOIN t_continents ON (t_pays.continent_id=t_continents.id_continent) GROUP BY libelle_continent ORDER BY SUM(population_pays) ASC
+
+#### 12 // 
+
+    SELECT libelle_region,SUM(population_pays) FROM t_pays INNER JOIN t_regions ON (t_pays.region_id=t_regions.id_region) GROUP BY libelle_region ORDER BY SUM(population_pays) ASC;
+
+#### 13 // 
+
+    SELECT id_pays, libelle_pays, esperance_vie_pays FROM t_pays HAVING esperance_vie_pays = (SELECT MAX(esperance_vie_pays) FROM t_pays)
+
+#### 14 // 
+
+    SELECT id_pays, libelle_pays, taux_mortalite_pays FROM t_pays HAVING taux_mortalite_pays = (SELECT min(taux_mortalite_pays) FROM t_pays)
+
+#### 15 // 
+
+    SELECT id_pays, libelle_pays, taux_natalite_pays FROM t_pays HAVING taux_natalite_pays = (SELECT max(taux_natalite_pays) FROM t_pays)
+
+#### 16 // 
+
+    SELECT id_pays, libelle_pays, nombre_enfants_par_femme_pays FROM t_pays HAVING nombre_enfants_par_femme_pays = (SELECT max(nombre_enfants_par_femme_pays) FROM t_pays)
+
+#### 17 // 
+
+    SELECT id_pays, libelle_pays, population_plus_65_pays FROM t_pays HAVING population_plus_65_pays = (SELECT max(population_plus_65_pays) FROM t_pays)
+
+#### 18 // 
+
+    SELECT AVG(esperance_vie_pays) FROM t_pays
+
+#### 19 // 
+
+    SELECT libelle_region ,AVG(taux_natalite_pays) FROM t_pays INNER JOIN t_regions ON (t_pays.region_id=t_regions.id_region) GROUP BY libelle_region ORDER BY AVG(taux_natalite_pays) ASC
+
+#### 20 // 
+
+    SELECT libelle_continent,AVG(taux_natalite_pays) FROM t_pays INNER JOIN t_continents ON (t_pays.continent_id=t_continents.id_continent) GROUP BY libelle_continent ORDER BY AVG(taux_natalite_pays) ASC;
+
+#### 21 // 
+
+    SELECT libelle_region ,AVG(taux_mortalite_pays) FROM t_pays INNER JOIN t_regions ON (t_pays.region_id=t_regions.id_region) GROUP BY libelle_region ORDER BY AVG(taux_mortalite_pays) ASC
+
+#### 22 // 
+
+    SELECT libelle_continent,AVG(taux_mortalite_pays) FROM t_pays INNER JOIN t_continents ON (t_pays.continent_id=t_continents.id_continent) GROUP BY libelle_continent ORDER BY AVG(taux_mortalite_pays) ASC;
+
+#### 23 // 
+
+    SELECT libelle_pays FROM t_pays where libelle_pays LIKE "A%"
+    #24 // SELECT libelle_continent, SUM(population_pays) FROM t_pays INNER JOIN t_continents ON (t_pays.continent_id=t_continents.id_continent) where libelle_continent LIKE  "%Amérique%"
+
+#### 25 // 
+
+    SELECT id_pays, libelle_pays, SUM(population_plus_65_pays)/(select SUM(population_plus_65_pays) FROM t_pays)*100 FROM t_pays GROUP BY libelle_pays ORDER BY SUM(population_plus_65_pays)/(select SUM(population_plus_65_pays) FROM t_pays)*100 DESC
+
+#### 26 // 
+
+    SELECT id_pays, libelle_pays, SUM(population_pays) FROM t_pays WHERE libelle_pays LIKE "%Corée%"
+
+#### 27 //  
+
+    SELECT SUM(population_pays) FROM t_pays WHERE libelle_pays LIKE 'France%' OR libelle_pays LIKE 'Guyane (fr%' OR libelle_pays LIKE 'réunion' OR libelle_pays LIKE 'guade%' OR libelle_pays LIKE 'Mayotte' OR libelle_pays LIKE 'Martinique';
+
+  
+#### 28 // 
+
+    SELECT id_pays, libelle_pays, taux_natalite_pays FROM t_pays WHERE taux_natalite_pays >= 17
+
+#### 29 // 
+
+    SELECT id_pays, libelle_pays, population_pays FROM t_pays WHERE population_pays >= 20000
+
+#### 30 // 
+
+    SELECT id_pays, libelle_pays, taux_croissance_pays FROM t_pays WHERE taux_croissance_pays < 0
+
+#### 31 // 
+
+    SELECT id_pays, libelle_pays, sum(population_pays) FROM t_pays WHERE libelle_pays like "%Chine%"
+
+#### 32 // 
+
+    SELECT id_pays, libelle_pays, sum(population_pays)/(select SUM(population_pays) FROM t_pays)*100 FROM t_pays WHERE libelle_pays like "%Chine%"
+
+#### 33 // 
+
+    SELECT libelle_continent,SUM(population_pays)+(SELECT SUM(population_pays) FROM t_pays WHERE libelle_pays = "Turquie") FROM t_pays INNER JOIN t_continents ON (t_pays.continent_id=t_continents.id_continent) WHERE id_continent=5
+
+#### 34 //  
+  
+
+      # Update Superficie par MAGINOT Damien
+    
+    UPDATE t_pays set Superficie='91' WHERE libelle_pays='Antigua-et-Barbuda';
+    UPDATE t_pays set Superficie='180' WHERE libelle_pays='Aruba';
+    UPDATE t_pays set Superficie='13900' WHERE libelle_pays='Bahamas';
+    UPDATE t_pays set Superficie='431' WHERE libelle_pays='Barbade';
+    UPDATE t_pays set Superficie='48700' WHERE libelle_pays='Cuba';
+    UPDATE t_pays set Superficie='444' WHERE libelle_pays='Curaçao';
+    UPDATE t_pays set Superficie='48' WHERE libelle_pays='Dominicaine (République)';
+    UPDATE t_pays set Superficie='549' WHERE libelle_pays='Grenade';
+    UPDATE t_pays set Superficie='1628' WHERE libelle_pays='Guadeloupe';
+    UPDATE t_pays set Superficie='27750' WHERE libelle_pays='Haïti';
+    UPDATE t_pays set Superficie='346.4' WHERE libelle_pays='Îles Vierges américaines';
+    UPDATE t_pays set Superficie='10991' WHERE libelle_pays='Jamaïque';
+    UPDATE t_pays set Superficie='1128' WHERE libelle_pays='Martinique';
+    UPDATE t_pays set Superficie='13791' WHERE libelle_pays='Porto Rico';
+    UPDATE t_pays set Superficie='617' WHERE libelle_pays='Sainte Lucie';
+    UPDATE t_pays set Superficie='389' WHERE libelle_pays='St Vincent-et-les-Grenadines';
+    UPDATE t_pays set Superficie='5128' WHERE libelle_pays='Trinité-et-Tobago';
+    UPDATE t_pays set Superficie='22966' WHERE libelle_pays='Belize';
+    UPDATE t_pays set Superficie='110900' WHERE libelle_pays='Costa Rica';
+    UPDATE t_pays set Superficie='108888' WHERE libelle_pays='Guatemala';
+    UPDATE t_pays set Superficie='90000' WHERE libelle_pays='Honduras';
+    UPDATE t_pays set Superficie='1870' WHERE libelle_pays='Mexique';
+    UPDATE t_pays set Superficie='140800' WHERE libelle_pays='Nicaragua';
+    UPDATE t_pays set Superficie='883900' WHERE libelle_pays='Panama';
+    UPDATE t_pays set Superficie='388' WHERE libelle_pays='Salvador';
+    UPDATE t_pays set Superficie='961' WHERE libelle_pays='Argentine';
+    UPDATE t_pays set Superficie='1099000' WHERE libelle_pays='Bolivie';
+    UPDATE t_pays set Superficie='8515770' WHERE libelle_pays='Brésil';
+    UPDATE t_pays set Superficie='9597000' WHERE libelle_pays='Chili';
+    UPDATE t_pays set Superficie='2170' WHERE libelle_pays='Colombie';
+    UPDATE t_pays set Superficie='256370' WHERE libelle_pays='Equateur';
+    UPDATE t_pays set Superficie='84000' WHERE libelle_pays='Guyane';
+    UPDATE t_pays set Superficie='84000' WHERE libelle_pays='Guyane (française)';
+    UPDATE t_pays set Superficie='461700' WHERE libelle_pays='Paraguay';
+    UPDATE t_pays set Superficie='1285220' WHERE libelle_pays='Pérou';
+    UPDATE t_pays set Superficie='163820' WHERE libelle_pays='Surinam';
+    UPDATE t_pays set Superficie='780600' WHERE libelle_pays='Uruguay';
+    UPDATE t_pays set Superficie='916445' WHERE libelle_pays='Venezuela';
+    UPDATE t_pays set Superficie='259' WHERE libelle_pays='Burundi';
+    UPDATE t_pays set Superficie='342000' WHERE libelle_pays='Comores';
+    UPDATE t_pays set Superficie='1001000' WHERE libelle_pays='Djibouti';
+    UPDATE t_pays set Superficie='117600' WHERE libelle_pays='Erythrée';
+    UPDATE t_pays set Superficie='1127000' WHERE libelle_pays='Ethiopie';
+    UPDATE t_pays set Superficie='582646' WHERE libelle_pays='Kenya';
+    UPDATE t_pays set Superficie='16' WHERE libelle_pays='Madagascar';
+    UPDATE t_pays set Superficie='329700' WHERE libelle_pays='Malawi';
+    UPDATE t_pays set Superficie='712000' WHERE libelle_pays='Maurice';
+    UPDATE t_pays set Superficie='374' WHERE libelle_pays='Mayotte';
+    UPDATE t_pays set Superficie='102' WHERE libelle_pays='Mozambique';
+    UPDATE t_pays set Superficie='268700' WHERE libelle_pays='Ouganda';
+    UPDATE t_pays set Superficie='2512' WHERE libelle_pays='Réunion';
+    UPDATE t_pays set Superficie='11400' WHERE libelle_pays='Rwanda';
+    UPDATE t_pays set Superficie='950' WHERE libelle_pays='Seychelles';
+    UPDATE t_pays set Superficie='71700' WHERE libelle_pays='Somalie';
+    UPDATE t_pays set Superficie='644329' WHERE libelle_pays='Sud Soudan';
+    UPDATE t_pays set Superficie='163300' WHERE libelle_pays='Tanzanie';
+    UPDATE t_pays set Superficie='912100' WHERE libelle_pays='Zambie';
+    UPDATE t_pays set Superficie='390745' WHERE libelle_pays='Zimbabwe';
+    UPDATE t_pays set Superficie='1246700' WHERE libelle_pays='Angola';
+    UPDATE t_pays set Superficie='9976000' WHERE libelle_pays='Cameroun';
+    UPDATE t_pays set Superficie='623000' WHERE libelle_pays='Centrafricaine (République)';
+    UPDATE t_pays set Superficie='240' WHERE libelle_pays='Congo';
+    UPDATE t_pays set Superficie='240' WHERE libelle_pays='Congo (Rép. dém. du) (ex-Zaïre)';
+    UPDATE t_pays set Superficie='6' WHERE libelle_pays='Gabon';
+    UPDATE t_pays set Superficie='28051' WHERE libelle_pays='Guinée équatoriale';
+    UPDATE t_pays set Superficie='1001' WHERE libelle_pays='Sao Tomé-et-Principe';
+    UPDATE t_pays set Superficie='17400' WHERE libelle_pays='Tchad';
+    UPDATE t_pays set Superficie='2381740' WHERE libelle_pays='Algérie';
+    UPDATE t_pays set Superficie='1001450' WHERE libelle_pays='Egypte';
+    UPDATE t_pays set Superficie='10400' WHERE libelle_pays='Libye';
+    UPDATE t_pays set Superficie='316' WHERE libelle_pays='Maroc';
+    UPDATE t_pays set Superficie='266000' WHERE libelle_pays='Sahara occidental';
+    UPDATE t_pays set Superficie='620' WHERE libelle_pays='Soudan';
+    UPDATE t_pays set Superficie='10' WHERE libelle_pays='Tunisie';
+    UPDATE t_pays set Superficie='1221040' WHERE libelle_pays='Afrique du Sud';
+    UPDATE t_pays set Superficie='8512000' WHERE libelle_pays='Botswana';
+    UPDATE t_pays set Superficie='30355' WHERE libelle_pays='Lesotho';
+    UPDATE t_pays set Superficie='783000' WHERE libelle_pays='Namibie';
+    UPDATE t_pays set Superficie='17364' WHERE libelle_pays='Swaziland';
+    UPDATE t_pays set Superficie='114763' WHERE libelle_pays='Bénin';
+    UPDATE t_pays set Superficie='274000' WHERE libelle_pays='Burkina Faso';
+    UPDATE t_pays set Superficie='622900' WHERE libelle_pays='Cap-Vert';
+    UPDATE t_pays set Superficie='322462' WHERE libelle_pays='Côte d\'Ivoire';
+    UPDATE t_pays set Superficie='131900' WHERE libelle_pays='Gambie';
+    UPDATE t_pays set Superficie='2180000' WHERE libelle_pays='Ghana';
+    UPDATE t_pays set Superficie='245857' WHERE libelle_pays='Guinée';
+    UPDATE t_pays set Superficie='36125' WHERE libelle_pays='Guinée-Bissau';
+    UPDATE t_pays set Superficie='111369' WHERE libelle_pays='Libéria';
+    UPDATE t_pays set Superficie='298' WHERE libelle_pays='Mali';
+    UPDATE t_pays set Superficie='1100' WHERE libelle_pays='Mauritanie';
+    UPDATE t_pays set Superficie='130000' WHERE libelle_pays='Niger';
+    UPDATE t_pays set Superficie='923768' WHERE libelle_pays='Nigéria';
+    UPDATE t_pays set Superficie='196839' WHERE libelle_pays='Sénégal';
+    UPDATE t_pays set Superficie='2800' WHERE libelle_pays='Sierra Leone';
+    UPDATE t_pays set Superficie='127900' WHERE libelle_pays='Togo';
+    UPDATE t_pays set Superficie='4030' WHERE libelle_pays='Canada';
+    UPDATE t_pays set Superficie='9831510' WHERE libelle_pays='Etats-Unis';
+    UPDATE t_pays set Superficie='207600' WHERE libelle_pays='Biélorussie';
+    UPDATE t_pays set Superficie='274200' WHERE libelle_pays='Bulgarie';
+    UPDATE t_pays set Superficie='27800' WHERE libelle_pays='Hongrie';
+    UPDATE t_pays set Superficie='375' WHERE libelle_pays='Moldavie';
+    UPDATE t_pays set Superficie='300000' WHERE libelle_pays='Pologne';
+    UPDATE t_pays set Superficie='4000' WHERE libelle_pays='Roumanie';
+    UPDATE t_pays set Superficie='92100' WHERE libelle_pays='Russie';
+    UPDATE t_pays set Superficie='196200' WHERE libelle_pays='Slovaquie';
+    UPDATE t_pays set Superficie='78867' WHERE libelle_pays='Tchèque (République)';
+    UPDATE t_pays set Superficie='430' WHERE libelle_pays='Ukraine';
+    UPDATE t_pays set Superficie='198' WHERE libelle_pays='Anglo-Normandes (Îles)';
+    UPDATE t_pays set Superficie='751' WHERE libelle_pays='Danemark';
+    UPDATE t_pays set Superficie='18270' WHERE libelle_pays='Estonie';
+    UPDATE t_pays set Superficie='11300' WHERE libelle_pays='Finlande';
+    UPDATE t_pays set Superficie='340' WHERE libelle_pays='Irlande';
+    UPDATE t_pays set Superficie='3288000' WHERE libelle_pays='Islande';
+    UPDATE t_pays set Superficie='17820' WHERE libelle_pays='Lettonie';
+    UPDATE t_pays set Superficie='1760000' WHERE libelle_pays='Lituanie';
+    UPDATE t_pays set Superficie='385207' WHERE libelle_pays='Norvège';
+    UPDATE t_pays set Superficie='243610' WHERE libelle_pays='Royaume Uni';
+    UPDATE t_pays set Superficie='528447' WHERE libelle_pays='Suède';
+    UPDATE t_pays set Superficie='28700' WHERE libelle_pays='Albanie';
+    UPDATE t_pays set Superficie='51209' WHERE libelle_pays='Bosnie-Herzégovine';
+    UPDATE t_pays set Superficie='23000' WHERE libelle_pays='Croatie';
+    UPDATE t_pays set Superficie='1400' WHERE libelle_pays='Espagne';
+    UPDATE t_pays set Superficie='131957' WHERE libelle_pays='Grèce';
+    UPDATE t_pays set Superficie='435000' WHERE libelle_pays='Italie';
+    UPDATE t_pays set Superficie='25713' WHERE libelle_pays='Macédoine';
+    UPDATE t_pays set Superficie='1240000' WHERE libelle_pays='Malte';
+    UPDATE t_pays set Superficie='13812' WHERE libelle_pays='Monténégro';
+    UPDATE t_pays set Superficie='49' WHERE libelle_pays='Portugal';
+    UPDATE t_pays set Superficie='21041' WHERE libelle_pays='Serbie';
+    UPDATE t_pays set Superficie='20273' WHERE libelle_pays='Slovénie';
+    UPDATE t_pays set Superficie='356800' WHERE libelle_pays='Allemagne';
+    UPDATE t_pays set Superficie='7687000' WHERE libelle_pays='Autriche';
+    UPDATE t_pays set Superficie='30500' WHERE libelle_pays='Belgique';
+    UPDATE t_pays set Superficie='543940' WHERE libelle_pays='France (métropolitaine)';
+    UPDATE t_pays set Superficie='160' WHERE libelle_pays='Luxembourg';
+    UPDATE t_pays set Superficie='406800' WHERE libelle_pays='Pays-Bas';
+    UPDATE t_pays set Superficie='276' WHERE libelle_pays='Suisse';
+    UPDATE t_pays set Superficie='2767000' WHERE libelle_pays='Australie';
+    UPDATE t_pays set Superficie='268021' WHERE libelle_pays='Nouvelle-Zélande';
+    UPDATE t_pays set Superficie='267700' WHERE libelle_pays='Fidji';
+    UPDATE t_pays set Superficie='18576' WHERE libelle_pays='Nouvelle-Calédonie';
+    UPDATE t_pays set Superficie='462840' WHERE libelle_pays='Papouasie-Nouvelle-Guinée';
+    UPDATE t_pays set Superficie='28896' WHERE libelle_pays='Salomon (Îles)';
+    UPDATE t_pays set Superficie='26' WHERE libelle_pays='Vanuatu';
+    UPDATE t_pays set Superficie='549' WHERE libelle_pays='Guam';
+    UPDATE t_pays set Superficie='372000' WHERE libelle_pays='Kiribati';
+    UPDATE t_pays set Superficie='701.9' WHERE libelle_pays='Micronésie (États fédérés de)';
+    UPDATE t_pays set Superficie='4167' WHERE libelle_pays='Polynésie française';
+    UPDATE t_pays set Superficie='2831' WHERE libelle_pays='Samoa occidentales';
+    UPDATE t_pays set Superficie='514000' WHERE libelle_pays='Tonga';
+    UPDATE t_pays set Superficie='9250' WHERE libelle_pays='Chine';
+    UPDATE t_pays set Superficie='2755' WHERE libelle_pays='Chine - Hong Kong';
+    UPDATE t_pays set Superficie='118' WHERE libelle_pays='Chine - Macao';
+    UPDATE t_pays set Superficie='120540' WHERE libelle_pays='Corée du Nord';
+    UPDATE t_pays set Superficie='100210' WHERE libelle_pays='Corée du Sud';
+    UPDATE t_pays set Superficie='70200' WHERE libelle_pays='Japon';
+    UPDATE t_pays set Superficie='2' WHERE libelle_pays='Mongolie';
+    UPDATE t_pays set Superficie='36197' WHERE libelle_pays='Taïwan';
+    UPDATE t_pays set Superficie='110900' WHERE libelle_pays='Brunei';
+    UPDATE t_pays set Superficie='475400' WHERE libelle_pays='Cambodge';
+    UPDATE t_pays set Superficie='1905' WHERE libelle_pays='Indonésie';
+    UPDATE t_pays set Superficie='582600' WHERE libelle_pays='Laos';
+    UPDATE t_pays set Superficie='587000' WHERE libelle_pays='Malaisie';
+    UPDATE t_pays set Superficie='676578' WHERE libelle_pays='Myanmar (Birmanie)';
+    UPDATE t_pays set Superficie='1285000' WHERE libelle_pays='Philippines';
+    UPDATE t_pays set Superficie='970' WHERE libelle_pays='Singapour';
+    UPDATE t_pays set Superficie='513120' WHERE libelle_pays='Thaïlande';
+    UPDATE t_pays set Superficie='15006' WHERE libelle_pays='Timor-Est';
+    UPDATE t_pays set Superficie='331690' WHERE libelle_pays='Viêt Nam';
+    UPDATE t_pays set Superficie='647497' WHERE libelle_pays='Afghanistan';
+    UPDATE t_pays set Superficie='144000' WHERE libelle_pays='Bangladesh';
+    UPDATE t_pays set Superficie='53' WHERE libelle_pays='Bhoutan';
+    UPDATE t_pays set Superficie='112100' WHERE libelle_pays='Inde';
+    UPDATE t_pays set Superficie='150' WHERE libelle_pays='Iran';
+    UPDATE t_pays set Superficie='20770' WHERE libelle_pays='Kazakhstan';
+    UPDATE t_pays set Superficie='199900' WHERE libelle_pays='Kirgizistan';
+    UPDATE t_pays set Superficie='118500' WHERE libelle_pays='Maldives';
+    UPDATE t_pays set Superficie='147181' WHERE libelle_pays='Népal';
+    UPDATE t_pays set Superficie='448900' WHERE libelle_pays='Ouzbékistan';
+    UPDATE t_pays set Superficie='236000' WHERE libelle_pays='Pakistan';
+    UPDATE t_pays set Superficie='2506000' WHERE libelle_pays='Sri Lanka';
+    UPDATE t_pays set Superficie='41200' WHERE libelle_pays='Tadjikistan';
+    UPDATE t_pays set Superficie='491210' WHERE libelle_pays='Turkménistan';
+    UPDATE t_pays set Superficie='440' WHERE libelle_pays='Arabie saoudite';
+    UPDATE t_pays set Superficie='29743' WHERE libelle_pays='Arménie';
+    UPDATE t_pays set Superficie='86600' WHERE libelle_pays='Azerbaïdjan';
+    UPDATE t_pays set Superficie='760' WHERE libelle_pays='Bahreïn';
+    UPDATE t_pays set Superficie='1139000' WHERE libelle_pays='Chypre';
+    UPDATE t_pays set Superficie='83600' WHERE libelle_pays='Emirats Arabes Unis';
+    UPDATE t_pays set Superficie='69700' WHERE libelle_pays='Georgie';
+    UPDATE t_pays set Superficie='93100' WHERE libelle_pays='Irak';
+    UPDATE t_pays set Superficie='22145' WHERE libelle_pays='Israël';
+    UPDATE t_pays set Superficie='103000' WHERE libelle_pays='Jordanie';
+    UPDATE t_pays set Superficie='17818' WHERE libelle_pays='Koweït';
+    UPDATE t_pays set Superficie='236800' WHERE libelle_pays='Liban';
+    UPDATE t_pays set Superficie='19060' WHERE libelle_pays='Oman';
+    UPDATE t_pays set Superficie='6020' WHERE libelle_pays='Palestine';
+    UPDATE t_pays set Superficie='312700' WHERE libelle_pays='Qatar';
+    UPDATE t_pays set Superficie='449900' WHERE libelle_pays='Syrie';
+    UPDATE t_pays set Superficie='5100' WHERE libelle_pays='Turquie';
+    UPDATE t_pays set Superficie='555000' WHERE libelle_pays='Yémen';
+
+  
+#### 35 // 
+          # Update Capitale par MAGINOT Damien
+        
+    UPDATE t_pays set Capitale='Saint John\'s' WHERE libelle_pays='Antigua-et-Barbuda';
+    UPDATE t_pays set Capitale='Oranjestad' WHERE libelle_pays='Aruba';
+    UPDATE t_pays set Capitale='Nassau' WHERE libelle_pays='Bahamas';
+    UPDATE t_pays set Capitale='Bridgetown' WHERE libelle_pays='Barbade';
+    UPDATE t_pays set Capitale='La Havane' WHERE libelle_pays='Cuba';
+    UPDATE t_pays set Capitale='Willemstad' WHERE libelle_pays='Curaçao';
+    UPDATE t_pays set Capitale='Saint-Domingue' WHERE libelle_pays='Dominicaine (République)';
+    UPDATE t_pays set Capitale='Saint-Georges' WHERE libelle_pays='Grenade';
+    UPDATE t_pays set Capitale='Basse-Terre' WHERE libelle_pays='Guadeloupe';
+    UPDATE t_pays set Capitale='Port-au-Prince' WHERE libelle_pays='Haïti';
+    UPDATE t_pays set Capitale='Charlotte Amalie' WHERE libelle_pays='Îles Vierges américaines';
+    UPDATE t_pays set Capitale='Kingston' WHERE libelle_pays='Jamaïque';
+    UPDATE t_pays set Capitale='Fort-de-France' WHERE libelle_pays='Martinique';
+    UPDATE t_pays set Capitale='San Juan' WHERE libelle_pays='Porto Rico';
+    UPDATE t_pays set Capitale='Castries' WHERE libelle_pays='Sainte Lucie';
+    UPDATE t_pays set Capitale='Kingstown' WHERE libelle_pays='St Vincent-et-les-Grenadines';
+    UPDATE t_pays set Capitale='Port-d\'Espagne' WHERE libelle_pays='Trinité-et-Tobago';
+    UPDATE t_pays set Capitale='Belmopan' WHERE libelle_pays='Belize';
+    UPDATE t_pays set Capitale='San José' WHERE libelle_pays='Costa Rica';
+    UPDATE t_pays set Capitale='Guatemala' WHERE libelle_pays='Guatemala';
+    UPDATE t_pays set Capitale='Tegucigalpa' WHERE libelle_pays='Honduras';
+    UPDATE t_pays set Capitale='Mexico' WHERE libelle_pays='Mexique';
+    UPDATE t_pays set Capitale='Managua' WHERE libelle_pays='Nicaragua';
+    UPDATE t_pays set Capitale='Panama' WHERE libelle_pays='Panama';
+    UPDATE t_pays set Capitale='San Salvador' WHERE libelle_pays='Salvador';
+    UPDATE t_pays set Capitale='Buenos Aires' WHERE libelle_pays='Argentine';
+    UPDATE t_pays set Capitale='Sucre / La Paz' WHERE libelle_pays='Bolivie';
+    UPDATE t_pays set Capitale='Brasília' WHERE libelle_pays='Brésil';
+    UPDATE t_pays set Capitale='Santiago' WHERE libelle_pays='Chili';
+    UPDATE t_pays set Capitale='Bogota' WHERE libelle_pays='Colombie';
+    UPDATE t_pays set Capitale='Quito' WHERE libelle_pays='Equateur';
+    UPDATE t_pays set Capitale='Cayenne' WHERE libelle_pays='Guyane';
+    UPDATE t_pays set Capitale='Cayenne' WHERE libelle_pays='Guyane (française)';
+    UPDATE t_pays set Capitale='Assomption (Asuncion)' WHERE libelle_pays='Paraguay';
+    UPDATE t_pays set Capitale='Lima' WHERE libelle_pays='Pérou';
+    UPDATE t_pays set Capitale='Paramaribo' WHERE libelle_pays='Surinam';
+    UPDATE t_pays set Capitale='Montevideo' WHERE libelle_pays='Uruguay';
+    UPDATE t_pays set Capitale='Caracas' WHERE libelle_pays='Venezuela';
+    UPDATE t_pays set Capitale='Gitega' WHERE libelle_pays='Burundi';
+    UPDATE t_pays set Capitale='Moroni' WHERE libelle_pays='Comores';
+    UPDATE t_pays set Capitale='Djibouti' WHERE libelle_pays='Djibouti';
+    UPDATE t_pays set Capitale='Asmara' WHERE libelle_pays='Erythrée';
+    UPDATE t_pays set Capitale='Addis-Abeba' WHERE libelle_pays='Ethiopie';
+    UPDATE t_pays set Capitale='Nairobi' WHERE libelle_pays='Kenya';
+    UPDATE t_pays set Capitale='Antananarivo (Tananarive)' WHERE libelle_pays='Madagascar';
+    UPDATE t_pays set Capitale='Lilongwe' WHERE libelle_pays='Malawi';
+    UPDATE t_pays set Capitale='Port-Louis' WHERE libelle_pays='Maurice';
+    UPDATE t_pays set Capitale='Mamoudzou' WHERE libelle_pays='Mayotte';
+    UPDATE t_pays set Capitale='Maputo' WHERE libelle_pays='Mozambique';
+    UPDATE t_pays set Capitale='Kampala' WHERE libelle_pays='Ouganda';
+    UPDATE t_pays set Capitale='Saint-Denis' WHERE libelle_pays='Réunion';
+    UPDATE t_pays set Capitale='Kigali' WHERE libelle_pays='Rwanda';
+    UPDATE t_pays set Capitale='Victoria' WHERE libelle_pays='Seychelles';
+    UPDATE t_pays set Capitale='Mogadiscio' WHERE libelle_pays='Somalie';
+    UPDATE t_pays set Capitale='Djouba' WHERE libelle_pays='Sud Soudan';
+    UPDATE t_pays set Capitale='Dodoma' WHERE libelle_pays='Tanzanie';
+    UPDATE t_pays set Capitale='Lusaka' WHERE libelle_pays='Zambie';
+    UPDATE t_pays set Capitale='Harare' WHERE libelle_pays='Zimbabwe';
+    UPDATE t_pays set Capitale='Luanda' WHERE libelle_pays='Angola';
+    UPDATE t_pays set Capitale='Yaoundé' WHERE libelle_pays='Cameroun';
+    UPDATE t_pays set Capitale='Bangui' WHERE libelle_pays='Centrafricaine (République)';
+    UPDATE t_pays set Capitale='Brazzaville' WHERE libelle_pays='Congo';
+    UPDATE t_pays set Capitale='Brazzaville' WHERE libelle_pays='Congo (Rép. dém. du) (ex-Zaïre)';
+    UPDATE t_pays set Capitale='Libreville' WHERE libelle_pays='Gabon';
+    UPDATE t_pays set Capitale='Malabo' WHERE libelle_pays='Guinée équatoriale';
+    UPDATE t_pays set Capitale='São Tomé' WHERE libelle_pays='Sao Tomé-et-Principe';
+    UPDATE t_pays set Capitale='Ndjamena' WHERE libelle_pays='Tchad';
+    UPDATE t_pays set Capitale='Alger' WHERE libelle_pays='Algérie';
+    UPDATE t_pays set Capitale='Le Caire' WHERE libelle_pays='Egypte';
+    UPDATE t_pays set Capitale='Tripoli' WHERE libelle_pays='Libye';
+    UPDATE t_pays set Capitale='Rabat' WHERE libelle_pays='Maroc';
+    UPDATE t_pays set Capitale='Laâyoune' WHERE libelle_pays='Sahara occidental';
+    UPDATE t_pays set Capitale='Khartoum' WHERE libelle_pays='Soudan';
+    UPDATE t_pays set Capitale='Tunis' WHERE libelle_pays='Tunisie';
+    UPDATE t_pays set Capitale='Pretoria' WHERE libelle_pays='Afrique du Sud';
+    UPDATE t_pays set Capitale='Gaborone' WHERE libelle_pays='Botswana';
+    UPDATE t_pays set Capitale='Maseru' WHERE libelle_pays='Lesotho';
+    UPDATE t_pays set Capitale='Windhoek' WHERE libelle_pays='Namibie';
+    UPDATE t_pays set Capitale='Eswatini' WHERE libelle_pays='Swaziland';
+    UPDATE t_pays set Capitale='Porto-Novo' WHERE libelle_pays='Bénin';
+    UPDATE t_pays set Capitale='Ouagadougou' WHERE libelle_pays='Burkina Faso';
+    UPDATE t_pays set Capitale='Praia' WHERE libelle_pays='Cap-Vert';
+    UPDATE t_pays set Capitale='Yamoussoukro' WHERE libelle_pays='Côte d\'Ivoire';
+    UPDATE t_pays set Capitale='Banjul' WHERE libelle_pays='Gambie';
+    UPDATE t_pays set Capitale='Accra' WHERE libelle_pays='Ghana';
+    UPDATE t_pays set Capitale='Conakry' WHERE libelle_pays='Guinée';
+    UPDATE t_pays set Capitale='Bissau' WHERE libelle_pays='Guinée-Bissau';
+    UPDATE t_pays set Capitale='Monrovia' WHERE libelle_pays='Libéria';
+    UPDATE t_pays set Capitale='Bamako' WHERE libelle_pays='Mali';
+    UPDATE t_pays set Capitale='Nouakchott' WHERE libelle_pays='Mauritanie';
+    UPDATE t_pays set Capitale='Niamey' WHERE libelle_pays='Niger';
+    UPDATE t_pays set Capitale='Abuja' WHERE libelle_pays='Nigéria';
+    UPDATE t_pays set Capitale='Dakar' WHERE libelle_pays='Sénégal';
+    UPDATE t_pays set Capitale='Freetown' WHERE libelle_pays='Sierra Leone';
+    UPDATE t_pays set Capitale='Lomé' WHERE libelle_pays='Togo';
+    UPDATE t_pays set Capitale='Ottawa' WHERE libelle_pays='Canada';
+    UPDATE t_pays set Capitale='Washington' WHERE libelle_pays='Etats-Unis';
+    UPDATE t_pays set Capitale='Minsk' WHERE libelle_pays='Biélorussie';
+    UPDATE t_pays set Capitale='Sofia' WHERE libelle_pays='Bulgarie';
+    UPDATE t_pays set Capitale='Budapest' WHERE libelle_pays='Hongrie';
+    UPDATE t_pays set Capitale='Chisinau' WHERE libelle_pays='Moldavie';
+    UPDATE t_pays set Capitale='Varsovie' WHERE libelle_pays='Pologne';
+    UPDATE t_pays set Capitale='Bucarest' WHERE libelle_pays='Roumanie';
+    UPDATE t_pays set Capitale='Moscou' WHERE libelle_pays='Russie';
+    UPDATE t_pays set Capitale='Bratislava' WHERE libelle_pays='Slovaquie';
+    UPDATE t_pays set Capitale='Prague' WHERE libelle_pays='Tchèque (République)';
+    UPDATE t_pays set Capitale='Kiev' WHERE libelle_pays='Ukraine';
+    UPDATE t_pays set Capitale='Saint Peter Port' WHERE libelle_pays='Anglo-Normandes (Îles)';
+    UPDATE t_pays set Capitale='Copenhague' WHERE libelle_pays='Danemark';
+    UPDATE t_pays set Capitale='Tallinn' WHERE libelle_pays='Estonie';
+    UPDATE t_pays set Capitale='Helsinki' WHERE libelle_pays='Finlande';
+    UPDATE t_pays set Capitale='Dublin' WHERE libelle_pays='Irlande';
+    UPDATE t_pays set Capitale='Reykjavik' WHERE libelle_pays='Islande';
+    UPDATE t_pays set Capitale='Riga' WHERE libelle_pays='Lettonie';
+    UPDATE t_pays set Capitale='Vilnius' WHERE libelle_pays='Lituanie';
+    UPDATE t_pays set Capitale='Oslo' WHERE libelle_pays='Norvège';
+    UPDATE t_pays set Capitale='Londres' WHERE libelle_pays='Royaume Uni';
+    UPDATE t_pays set Capitale='Stockholm' WHERE libelle_pays='Suède';
+    UPDATE t_pays set Capitale='Tirana' WHERE libelle_pays='Albanie';
+    UPDATE t_pays set Capitale='Sarajevo' WHERE libelle_pays='Bosnie-Herzégovine';
+    UPDATE t_pays set Capitale='Zagreb' WHERE libelle_pays='Croatie';
+    UPDATE t_pays set Capitale='Madrid' WHERE libelle_pays='Espagne';
+    UPDATE t_pays set Capitale='Athènes' WHERE libelle_pays='Grèce';
+    UPDATE t_pays set Capitale='Rome' WHERE libelle_pays='Italie';
+    UPDATE t_pays set Capitale='Skopje' WHERE libelle_pays='Macédoine';
+    UPDATE t_pays set Capitale='La Valette' WHERE libelle_pays='Malte';
+    UPDATE t_pays set Capitale='Podgorica' WHERE libelle_pays='Monténégro';
+    UPDATE t_pays set Capitale='Lisbonne' WHERE libelle_pays='Portugal';
+    UPDATE t_pays set Capitale='Belgrade' WHERE libelle_pays='Serbie';
+    UPDATE t_pays set Capitale='Ljubljana' WHERE libelle_pays='Slovénie';
+    UPDATE t_pays set Capitale='Berlin' WHERE libelle_pays='Allemagne';
+    UPDATE t_pays set Capitale='Vienne' WHERE libelle_pays='Autriche';
+    UPDATE t_pays set Capitale='Bruxelles' WHERE libelle_pays='Belgique';
+    UPDATE t_pays set Capitale='Paris' WHERE libelle_pays='France (métropolitaine)';
+    UPDATE t_pays set Capitale='Luxembourg' WHERE libelle_pays='Luxembourg';
+    UPDATE t_pays set Capitale='Amsterdam' WHERE libelle_pays='Pays-Bas';
+    UPDATE t_pays set Capitale='Berne' WHERE libelle_pays='Suisse';
+    UPDATE t_pays set Capitale='Canberra' WHERE libelle_pays='Australie';
+    UPDATE t_pays set Capitale='Wellington' WHERE libelle_pays='Nouvelle-Zélande';
+    UPDATE t_pays set Capitale='Suva' WHERE libelle_pays='Fidji';
+    UPDATE t_pays set Capitale='Nouméa' WHERE libelle_pays='Nouvelle-Calédonie';
+    UPDATE t_pays set Capitale='Port Moresby' WHERE libelle_pays='Papouasie-Nouvelle-Guinée';
+    UPDATE t_pays set Capitale='Honiara' WHERE libelle_pays='Salomon (Îles)';
+    UPDATE t_pays set Capitale='Port-Vila' WHERE libelle_pays='Vanuatu';
+    UPDATE t_pays set Capitale='Agana' WHERE libelle_pays='Guam';
+    UPDATE t_pays set Capitale='Bairiki' WHERE libelle_pays='Kiribati';
+    UPDATE t_pays set Capitale='Palikir' WHERE libelle_pays='Micronésie (États fédérés de)';
+    UPDATE t_pays set Capitale='Papeete' WHERE libelle_pays='Polynésie française';
+    UPDATE t_pays set Capitale='Apia' WHERE libelle_pays='Samoa occidentales';
+    UPDATE t_pays set Capitale='Nuku'alofa' WHERE libelle_pays='Tonga';
+    UPDATE t_pays set Capitale='Pékin' WHERE libelle_pays='Chine';
+    UPDATE t_pays set Capitale='Victoria' WHERE libelle_pays='Chine - Hong Kong';
+    UPDATE t_pays set Capitale='NULL' WHERE libelle_pays='Chine - Macao';
+    UPDATE t_pays set Capitale='Pyongyang' WHERE libelle_pays='Corée du Nord';
+    UPDATE t_pays set Capitale='Séoul' WHERE libelle_pays='Corée du Sud';
+    UPDATE t_pays set Capitale='Tokyo' WHERE libelle_pays='Japon';
+    UPDATE t_pays set Capitale='Oulan-Bator' WHERE libelle_pays='Mongolie';
+    UPDATE t_pays set Capitale='Taipei' WHERE libelle_pays='Taïwan';
+    UPDATE t_pays set Capitale='Bandar Seri Begawan' WHERE libelle_pays='Brunei';
+    UPDATE t_pays set Capitale='Phnom Penh' WHERE libelle_pays='Cambodge';
+    UPDATE t_pays set Capitale='Jakarta' WHERE libelle_pays='Indonésie';
+    UPDATE t_pays set Capitale='Vientiane' WHERE libelle_pays='Laos';
+    UPDATE t_pays set Capitale='Kuala Lumpur' WHERE libelle_pays='Malaisie';
+    UPDATE t_pays set Capitale='Naypyidaw' WHERE libelle_pays='Myanmar (Birmanie)';
+    UPDATE t_pays set Capitale='Manille' WHERE libelle_pays='Philippines';
+    UPDATE t_pays set Capitale='Singapour' WHERE libelle_pays='Singapour';
+    UPDATE t_pays set Capitale='Bangkok' WHERE libelle_pays='Thaïlande';
+    UPDATE t_pays set Capitale='Díli' WHERE libelle_pays='Timor-Est';
+    UPDATE t_pays set Capitale='Hanoï' WHERE libelle_pays='Viêt Nam';
+    UPDATE t_pays set Capitale='Kaboul' WHERE libelle_pays='Afghanistan';
+    UPDATE t_pays set Capitale='Dacca' WHERE libelle_pays='Bangladesh';
+    UPDATE t_pays set Capitale='Thimphou' WHERE libelle_pays='Bhoutan';
+    UPDATE t_pays set Capitale='New Delhi' WHERE libelle_pays='Inde';
+    UPDATE t_pays set Capitale='Téhéran' WHERE libelle_pays='Iran';
+    UPDATE t_pays set Capitale='Nour-Soultan' WHERE libelle_pays='Kazakhstan';
+    UPDATE t_pays set Capitale='Bichkek' WHERE libelle_pays='Kirgizistan';
+    UPDATE t_pays set Capitale='Malé' WHERE libelle_pays='Maldives';
+    UPDATE t_pays set Capitale='Katmandou' WHERE libelle_pays='Népal';
+    UPDATE t_pays set Capitale='Tachkent' WHERE libelle_pays='Ouzbékistan';
+    UPDATE t_pays set Capitale='Islamabad' WHERE libelle_pays='Pakistan';
+    UPDATE t_pays set Capitale='Sri Jayewardenepura-Kotte' WHERE libelle_pays='Sri Lanka';
+    UPDATE t_pays set Capitale='Douchanbé' WHERE libelle_pays='Tadjikistan';
+    UPDATE t_pays set Capitale='Achgabat' WHERE libelle_pays='Turkménistan';
+    UPDATE t_pays set Capitale='Riyad' WHERE libelle_pays='Arabie saoudite';
+    UPDATE t_pays set Capitale='Erevan' WHERE libelle_pays='Arménie';
+    UPDATE t_pays set Capitale='Bakou' WHERE libelle_pays='Azerbaïdjan';
+    UPDATE t_pays set Capitale='Manama' WHERE libelle_pays='Bahreïn';
+    UPDATE t_pays set Capitale='Nicosie' WHERE libelle_pays='Chypre';
+    UPDATE t_pays set Capitale='Abou Dabi' WHERE libelle_pays='Emirats Arabes Unis';
+    UPDATE t_pays set Capitale='Tbilissi' WHERE libelle_pays='Georgie';
+    UPDATE t_pays set Capitale='Bagdad' WHERE libelle_pays='Irak';
+    UPDATE t_pays set Capitale='Jérusalem' WHERE libelle_pays='Israël';
+    UPDATE t_pays set Capitale='Amman' WHERE libelle_pays='Jordanie';
+    UPDATE t_pays set Capitale='Koweït' WHERE libelle_pays='Koweït';
+    UPDATE t_pays set Capitale='Beyrouth' WHERE libelle_pays='Liban';
+    UPDATE t_pays set Capitale='Mascate' WHERE libelle_pays='Oman';
+    UPDATE t_pays set Capitale='Ramallah' WHERE libelle_pays='Palestine';
+    UPDATE t_pays set Capitale='Doha' WHERE libelle_pays='Qatar';
+    UPDATE t_pays set Capitale='Damas' WHERE libelle_pays='Syrie';
+    UPDATE t_pays set Capitale='Ankara' WHERE libelle_pays='Turquie';
+    UPDATE t_pays set Capitale='Sanaa' WHERE libelle_pays='Yémen';
+---
+## Résultat 
 ﻿
 | id_pays | libelle_pays                    | Capitale                  | Superficie_km2 | libelle_pays_en | population_pays | taux_natalite_pays | taux_mortalite_pays | esperance_vie_pays | taux_mortalite_infantile_pays | nombre_enfants_par_femme_pays | taux_croissance_pays | population_plus_65_pays | continent_id | region_id |
 |---------|---------------------------------|---------------------------|----------------|-----------------|-----------------|--------------------|---------------------|--------------------|-------------------------------|-------------------------------|----------------------|-------------------------|--------------|-----------|
@@ -202,4 +746,3 @@
 | 400     | Syrie                           | Damas                     | 449900         |                 | 22775           | 23                 | 4                   | 75                 | 16                            | 3                             | 26                   | 1006                    | 4            | 9         |
 | 401     | Turquie                         | Ankara                    | 5100           |                 | 77485           | 16                 | 6                   | 76                 | 10                            | 2                             | 10                   | 6133                    | 4            | 9         |
 | 402     | Yémen                           | Sanaa                     | 555000         |                 | 26107           | 30                 | 7                   | 64                 | 53                            | 4                             | 22                   | 782                     | 4            | 9         |
-
