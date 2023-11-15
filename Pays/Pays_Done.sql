@@ -8,7 +8,7 @@ INSERT INTO `t_continents` (`id_continent`, `libelle_continent`) VALUES
 	(6, 'Océanie');
 
 -- Listage des données de la table pays.t_pays : ~201 rows (environ)
-INSERT INTO `t_pays` (`id_pays`, `libelle_pays`, `Capitale`, `Superficie_km2`, `libelle_pays_en`, `population_pays`, `taux_natalite_pays`, `taux_mortalite_pays`, `esperance_vie_pays`, `taux_mortalite_infantile_pays`, `nombre_enfants_par_femme_pays`, `taux_croissance_pays`, `population_plus_65_pays`, `continent_id`, `region_id`) VALUES
+INSERT INTO `t_pays` (`id_pays`, `libelle_pays`, `Capitale`, `Superficie`, `libelle_pays_en`, `population_pays`, `taux_natalite_pays`, `taux_mortalite_pays`, `esperance_vie_pays`, `taux_mortalite_infantile_pays`, `nombre_enfants_par_femme_pays`, `taux_croissance_pays`, `population_plus_65_pays`, `continent_id`, `region_id`) VALUES
 	(202, 'Antigua-et-Barbuda', 'Saint John\'s', 91, '', 93, 16, 6, 77, 8, 2, 10, 7, 2, 13),
 	(203, 'Aruba', 'Oranjestad', 180, '', 104, 10, 9, 76, 14, 2, 4, 13, 2, 13),
 	(204, 'Bahamas', 'Nassau', 13900, '', 392, 15, 6, 76, 8, 2, 12, 34, 2, 13),
