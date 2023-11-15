@@ -1,3 +1,4 @@
+# Correction 
 #### 1 // 
 
     SELECT * FROM t_regions INNER JOIN t_continents ON (t_regions.continent_id = 5)
