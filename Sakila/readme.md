@@ -6,7 +6,10 @@ Nombre film par catégorie. :
 
 Film par catégorie dans l'inventaire : 
 
-    SELECT inventory.store_id, category.name, count(inventory.film_id) FROM film_category INNER JOIN category ON category.category_id=film_category.category_id INNER JOIN film ON film.film_id=film_category.film_id INNER JOIN inventory ON inventory.film_id= film.film_id GROUP BY inventory .store_id, category.name ORDER BY store_id
+    SELECT inventory.store_id, category.name, count(inventory.film_id) FROM film_category 
+    INNER JOIN category ON category.category_id=film_category.category_id 
+    INNER JOIN film ON film.film_id=film_category.film_id INNER JOIN inventory ON inventory.film_id= film.film_id 
+    GROUP BY inventory .store_id, category.name ORDER BY store_id
 
 Acteur par film : 
 
@@ -14,7 +17,10 @@ Acteur par film :
 
 Top location : 
 
-    SELECT film.title, COUNT(film.title) as rentals from film JOIN (SELECT rental.rental_id, inventory.film_id FROM rental JOIN inventory ON inventory.inventory_id = rental.inventory_id) AS total ON total.film_id = film.film_id GROUP BY film.title ORDER BY rentals DESC limit 10
+    SELECT film.title, COUNT(film.title) as rentals from film 
+    JOIN (SELECT rental.rental_id, inventory.film_id FROM rental 
+    JOIN inventory ON inventory.inventory_id = rental.inventory_id) AS total ON total.film_id = film.film_id 
+    GROUP BY film.title ORDER BY rentals DESC limit 10
 
 Nombre clients par magasin : 
 
