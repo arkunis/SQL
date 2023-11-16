@@ -51,31 +51,19 @@
 
 #### 6/
 
-    SELECT Person.LastName, 
-    Person.FirstName,
-    Person.BusinessEntityAddress.AddressID,
-    Address.AddressID,
-    Person.AddressType.Name
-    from HumanResources.Employee 
-    inner join Person.Person on Person.BusinessEntityID = HumanResources.Employee.BusinessEntityID 
-    inner join Person.AddressType on AddressType.AddressTypeID = 2
-    inner join Person.BusinessEntityAddress on BusinessEntityAddress.BusinessEntityID = HumanResources.Employee.BusinessEntityID
-    inner join Person.Address on Address.AddressID = BusinessEntityAddress.AddressID
-    order by Person.BusinessEntityID asc
+    select Person.FirstName, Person.LastName, CONCAT(Person.Address.AddressLine1, Person.Address.AddressLine2) ,Person.AddressType.Name  from Person.Person
+    right join Person.BusinessEntityAddress on Person.BusinessEntityAddress.BusinessEntityID = Person.BusinessEntityID
+    inner join Person.AddressType on Person.AddressType.AddressTypeID = Person.BusinessEntityAddress.AddressTypeID
+    inner join Person.Address on Person.Address.AddressID = Person.BusinessEntityAddress.AddressID
+    where Person.BusinessEntityAddress.AddressTypeID = 2
 
 #### 7/
 
-    SELECT Person.LastName, 
-    Person.FirstName,
-    Person.BusinessEntityAddress.AddressID,
-    Address.AddressID,
-    Person.AddressType.Name
-    from HumanResources.Employee 
-    inner join Person.Person on Person.BusinessEntityID = HumanResources.Employee.BusinessEntityID 
-    inner join Person.AddressType on AddressType.AddressTypeID = 3
-    inner join Person.BusinessEntityAddress on BusinessEntityAddress.BusinessEntityID = HumanResources.Employee.BusinessEntityID
-    inner join Person.Address on Address.AddressID = BusinessEntityAddress.AddressID
-    order by Person.BusinessEntityID asc
+    select Person.FirstName, Person.LastName, CONCAT(Person.Address.AddressLine1, Person.Address.AddressLine2) ,Person.AddressType.Name  from Person.Person
+    right join Person.BusinessEntityAddress on Person.BusinessEntityAddress.BusinessEntityID = Person.BusinessEntityID
+    inner join Person.AddressType on Person.AddressType.AddressTypeID = Person.BusinessEntityAddress.AddressTypeID
+    inner join Person.Address on Person.Address.AddressID = Person.BusinessEntityAddress.AddressID
+    where Person.BusinessEntityAddress.AddressTypeID = 3
 
 #### 8/
 
