@@ -69,15 +69,9 @@
 
 #### 9/
 
-    SELECT Person.LastName, 
-    Person.FirstName,
-    Person.BusinessEntityID,
-    Customer.AccountNumber
-    from Person.Person
-    inner join HumanResources.Employee on HumanResources.Employee.BusinessEntityID = Person.BusinessEntityID
-    inner join Sales.Customer on Customer.CustomerID = Person.BusinessEntityID
-    where Person.PersonType like 'SP'
-    order by BusinessEntityID asc
+    Select Person.FirstName, Person.LastName, Sales.Customer.AccountNumber from Sales.Customer
+    inner join Person.Person on Person.BusinessEntityID = Sales.Customer.PersonID
+    where PersonID is not NULL and StoreID is not NULL
 
 #### 10/
 
