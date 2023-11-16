@@ -109,11 +109,35 @@
     inner join Production.ProductDescription on ProductDescription.ProductDescriptionID = ProductModelProductDescriptionCulture.ProductDescriptionID
     where ProductModelProductDescriptionCulture.CultureID = 'FR'
 
-#### 11/
+#### 11/ 
 
+    select SalesOrderNumber, OrderDate from Sales.SalesOrderHeader
+    where OrderDate like '%2014%'
 #### 12/
+
+    select count(SalesOrderHeader.CreditCardID) 'Nombre Vente', CreditCard.CardType from Sales.SalesOrderHeader
+    inner join Sales.CreditCard on CreditCard.CreditCardID = SalesOrderHeader.CreditCardID
+    group by CreditCard.CardType
 #### 13/
+
+    select Product.Name, count(SalesOrderDetail.ProductID) 'Nombre Vente Par Produit' from Sales.SalesOrderDetail
+    inner join Production.Product on Product.ProductID = SalesOrderDetail.ProductID
+    group by Name
 #### 14/
+
+    select Product.Name, Production.Product.ProductID, count(SalesOrderDetail.ProductID) 'Nombre Vente Par Produit', sum(SalesOrderDetail.UnitPrice) 'Total Vente' from Sales.SalesOrderDetail
+    inner join Production.Product on Product.ProductID = SalesOrderDetail.ProductID
+    group by Name, Product.ProductID
+    order by Product.ProductID ASC
 #### 15/
+
+    select ProductNumber,  Production.Product.Name,  Production.ProductCategory.Name from Production.Product
+    inner join Production.ProductSubcategory on ProductSubcategory.ProductSubcategoryID = Production.Product.ProductSubcategoryID
+    inner join Production.ProductCategory on Production.ProductCategory.ProductCategoryID = ProductSubcategory.ProductCategoryID
+    order by Production.ProductCategory.ProductCategoryID
+
 #### 16/
-#### 17/
+
+    select Production.Product.Name, OrderQty from Sales.SalesOrderDetail
+    inner join Production.Product on Production.Product.ProductID = Sales.SalesOrderDetail.ProductID
+    where OrderQty > (select max(OrderQty) from Sales.SalesOrderDetail) -1
