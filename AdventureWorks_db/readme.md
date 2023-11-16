@@ -65,13 +65,11 @@
 
 #### 8/
 
-    SELECT Person.LastName, 
-    Person.FirstName,
-    EmailAddress.EmailAddress
-    from HumanResources.Employee 
-    inner join Person.Person on Person.BusinessEntityID = HumanResources.Employee.BusinessEntityID 
-    inner join Person.EmailAddress on EmailAddress.BusinessEntityID = HumanResources.Employee.BusinessEntityID
-    where Person.EmailPromotion > 1
+    SELECT LastName, FirstName, STRING_AGG(EmailAddress,' - ') FROM Person.Person
+    JOIN Person.EmailAddress ON(Person.Person.BusinessEntityID =Person.EmailAddress.BusinessEntityID)
+    GROUP BY LastName, FirstName
+    HAVING COUNT(EmailAddress)>=2
+    ORDER BY LastName, FirstName ASC
 
 #### 9/
 
