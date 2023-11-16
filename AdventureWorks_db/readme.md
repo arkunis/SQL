@@ -73,10 +73,9 @@
     Person.FirstName,
     Person.BusinessEntityID,
     Customer.AccountNumber
-    from HumanResources.Employee 
-    inner join Person.Person on Person.BusinessEntityID = HumanResources.Employee.BusinessEntityID 
-    inner join HumanResources.Department on Department.DepartmentID = HumanResources.Employee.OrganizationLevel
-    inner join Sales.Customer on Customer.CustomerID = HumanResources.Employee.BusinessEntityID
+    from Person.Person
+    inner join HumanResources.Employee on HumanResources.Employee.BusinessEntityID = Person.BusinessEntityID
+    inner join Sales.Customer on Customer.CustomerID = Person.BusinessEntityID
     where Person.PersonType like 'SP'
     order by BusinessEntityID asc
 
