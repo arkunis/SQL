@@ -33,8 +33,8 @@
 #### 4/
 
     SELECT Person.LastName, Person.FirstName, PhoneNumber, PhoneNumberType.Name
-    from HumanResources.Employee 
-    inner join Person.Person on Person.BusinessEntityID = HumanResources.Employee.BusinessEntityID 
+    from Person.Person 
+    inner join HumanResources.Employee on HumanResources.Employee.BusinessEntityID = Person.BusinessEntityID
     inner join Person.PersonPhone on PersonPhone.BusinessEntityID = HumanResources.Employee.BusinessEntityID
     inner join Person.PhoneNumberType on PhoneNumberType.PhoneNumberTypeID = PersonPhone.PhoneNumberTypeID
     where PersonPhone.PhoneNumberTypeID = 3
