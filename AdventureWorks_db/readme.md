@@ -141,3 +141,15 @@
     select Production.Product.Name, OrderQty from Sales.SalesOrderDetail
     inner join Production.Product on Production.Product.ProductID = Sales.SalesOrderDetail.ProductID
     where OrderQty > (select max(OrderQty) from Sales.SalesOrderDetail) -1
+
+#### 17/
+
+    select Production.Product.ProductNumber, Production.Product.Name, Production.ProductPhoto.LargePhotoFileName, Production.ProductDescription.Description, Production.ProductSubcategory.Name, Purchasing.PurchaseOrderDetail.OrderQty
+    from Production.Product
+    inner join Production.ProductProductPhoto on ProductProductPhoto.ProductID = Production.Product.ProductID
+    inner join Production.ProductPhoto on Production.ProductPhoto.ProductPhotoID = ProductProductPhoto.ProductPhotoID
+    inner join Production.ProductModelProductDescriptionCulture on Production.ProductModelProductDescriptionCulture.ProductModelID = Production.Product.ProductModelID
+    inner join Production.ProductDescription on Production.ProductDescription.ProductDescriptionID = Production.ProductModelProductDescriptionCulture.ProductDescriptionID
+    inner join Production.ProductSubcategory on Production.ProductSubcategory.ProductSubcategoryID = Product.ProductSubcategoryID
+    inner join Purchasing.PurchaseOrderDetail on Purchasing.PurchaseOrderDetail.ProductID = Production.Product.ProductID
+    where Production.ProductModelProductDescriptionCulture.CultureID like '%fr%'
