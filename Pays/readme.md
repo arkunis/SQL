@@ -489,7 +489,7 @@
     UPDATE t_pays set Capitale='Palikir' WHERE libelle_pays='Micronésie (États fédérés de)';
     UPDATE t_pays set Capitale='Papeete' WHERE libelle_pays='Polynésie française';
     UPDATE t_pays set Capitale='Apia' WHERE libelle_pays='Samoa occidentales';
-    UPDATE t_pays set Capitale='Nuku'alofa' WHERE libelle_pays='Tonga';
+    UPDATE t_pays set Capitale='Nuku\'alofa' WHERE libelle_pays='Tonga';
     UPDATE t_pays set Capitale='Pékin' WHERE libelle_pays='Chine';
     UPDATE t_pays set Capitale='Victoria' WHERE libelle_pays='Chine - Hong Kong';
     UPDATE t_pays set Capitale='NULL' WHERE libelle_pays='Chine - Macao';
