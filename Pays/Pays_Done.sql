@@ -1,3 +1,32 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données :  `pays`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `t_continents`
+--
+
+DROP TABLE IF EXISTS `t_continents`;
+CREATE TABLE IF NOT EXISTS `t_continents` (
+  `id_continent` smallint(3) NOT NULL AUTO_INCREMENT,
+  `libelle_continent` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_continent`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+
 -- Listage des données de la table pays.t_continents : ~6 rows (environ)
 INSERT INTO `t_continents` (`id_continent`, `libelle_continent`) VALUES
 	(1, 'Afrique'),
@@ -6,6 +35,28 @@ INSERT INTO `t_continents` (`id_continent`, `libelle_continent`) VALUES
 	(4, 'Asie'),
 	(5, 'Europe'),
 	(6, 'Océanie');
+
+
+
+	DROP TABLE IF EXISTS `t_pays`;
+CREATE TABLE IF NOT EXISTS `t_pays` (
+  `id_pays` smallint(3) NOT NULL AUTO_INCREMENT,
+  `libelle_pays` varchar(100) NOT NULL,
+  `libelle_pays_en` varchar(255) NOT NULL,
+  `population_pays` int(11) NOT NULL,
+  `taux_natalite_pays` decimal(5,0) NOT NULL,
+  `taux_mortalite_pays` decimal(5,0) NOT NULL,
+  `esperance_vie_pays` decimal(5,0) NOT NULL,
+  `taux_mortalite_infantile_pays` decimal(5,0) NOT NULL,
+  `nombre_enfants_par_femme_pays` decimal(5,0) NOT NULL,
+  `taux_croissance_pays` decimal(5,0) NOT NULL,
+  `population_plus_65_pays` int(11) NOT NULL,
+  `continent_id` smallint(3) DEFAULT NULL,
+  `region_id` smallint(3) DEFAULT NULL,
+  PRIMARY KEY (`id_pays`),
+  KEY `fk_region` (`region_id`),
+  KEY `fk_continent` (`continent_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=403 DEFAULT CHARSET=utf8;
 
 -- Listage des données de la table pays.t_pays : ~201 rows (environ)
 INSERT INTO `t_pays` (`id_pays`, `libelle_pays`, `Capitale`, `Superficie`, `libelle_pays_en`, `population_pays`, `taux_natalite_pays`, `taux_mortalite_pays`, `esperance_vie_pays`, `taux_mortalite_infantile_pays`, `nombre_enfants_par_femme_pays`, `taux_croissance_pays`, `population_plus_65_pays`, `continent_id`, `region_id`) VALUES
@@ -210,6 +261,20 @@ INSERT INTO `t_pays` (`id_pays`, `libelle_pays`, `Capitale`, `Superficie`, `libe
 	(400, 'Syrie', 'Damas', 449900, '', 22775, 23, 4, 75, 16, 3, 26, 1006, 4, 9),
 	(401, 'Turquie', 'Ankara', 5100, '', 77485, 16, 6, 76, 10, 2, 10, 6133, 4, 9),
 	(402, 'Yémen', 'Sanaa', 555000, '', 26107, 30, 7, 64, 53, 4, 22, 782, 4, 9);
+
+
+--
+-- Structure de la table `t_regions`
+--
+
+DROP TABLE IF EXISTS `t_regions`;
+CREATE TABLE IF NOT EXISTS `t_regions` (
+  `id_region` smallint(3) NOT NULL AUTO_INCREMENT,
+  `libelle_region` varchar(255) NOT NULL,
+  `continent_id` smallint(3) NOT NULL,
+  PRIMARY KEY (`id_region`),
+  KEY `fk_region_continent` (`continent_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- Listage des données de la table pays.t_regions : ~20 rows (environ)
 INSERT INTO `t_regions` (`id_region`, `libelle_region`, `continent_id`) VALUES
