@@ -42,6 +42,8 @@ INSERT INTO `t_continents` (`id_continent`, `libelle_continent`) VALUES
 CREATE TABLE IF NOT EXISTS `t_pays` (
   `id_pays` smallint(3) NOT NULL AUTO_INCREMENT,
   `libelle_pays` varchar(100) NOT NULL,
+  `Capitale` varchar(100) NOT NULL,
+  `Superficie` varchar(100) NOT NULL,
   `libelle_pays_en` varchar(255) NOT NULL,
   `population_pays` int(11) NOT NULL,
   `taux_natalite_pays` decimal(5,0) NOT NULL,
